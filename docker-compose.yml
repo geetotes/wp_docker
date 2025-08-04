@@ -4,9 +4,9 @@ services:
     ports:
       - "9080:80" # change ip if required
     volumes:
-      - ./wordpress/config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./wordpress/wp-app:/var/www/html # Full wordpress project
-      - ./wordpress-plugin-name/:/var/www/html/wp-content/plugins/faxosaurus # Plugin development
+      - ./config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./wp-app:/var/www/html # Full wordpress project
+      #- ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
       #- ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
     environment:
       WORDPRESS_DB_HOST: wp_db
