@@ -4760,7 +4760,7 @@ const isIterable = (thing) => thing != null && isFunction(thing[iterator]);
   \**********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/my-plugin","version":"0.1.0","title":"My Plugin","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"my-plugin","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/my-plugin","version":"0.1.0","title":"My Plugin","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"textdomain":"my-plugin","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","render":"file:./render.php","viewScript":"file:./view.js","attributes":{"time":{"type":"string"}}}');
 
 /***/ }),
 
@@ -4822,12 +4822,18 @@ __webpack_require__.r(__webpack_exports__);
  * @return {Element} Element to render.
  */
 
-function Edit() {
+function Edit({
+  attributes,
+  setAttributes
+}) {
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     axios__WEBPACK_IMPORTED_MODULE_3__["default"].get('http://localhost:8081').then(response => {
       if (response.data.message) {
         setMessage(response.data.message);
+        setAttributes({
+          time: response.data.time
+        });
       }
     }).catch(error => console.error('Error fetching API:', error));
   }, []);

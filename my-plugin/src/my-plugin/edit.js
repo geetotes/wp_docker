@@ -36,7 +36,7 @@ import { useState, useEffect } from 'react';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit( {attributes, setAttributes} ) {
 	const [ message, setMessage ] = useState( null );
 
 	useEffect( () => {
@@ -44,6 +44,7 @@ export default function Edit() {
 			.then( ( response ) => {
 				if ( response.data.message ) {
 					setMessage( response.data.message );
+					setAttributes( { time: response.data.time } );
 				}
 			} )
 			.catch( ( error ) => console.error( 'Error fetching API:', error ) );
