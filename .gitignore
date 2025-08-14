@@ -1,0 +1,2 @@
+# Ignore wordpress install created by docker image
+wp-app/*
