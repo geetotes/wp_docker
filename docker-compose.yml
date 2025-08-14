@@ -6,7 +6,7 @@ services:
     volumes:
       - ./config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./wp-app:/var/www/html # Full wordpress project
-      #- ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name # Plugin development
+      - ./my-plugin:/var/www/html/wp-content/plugins/my-plugin # Plugin development
       #- ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name # Theme development
     environment:
       WORDPRESS_DB_HOST: wp_db
@@ -47,6 +47,12 @@ services:
     volumes:
      - ./wordpress/config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
      - ./wordpress/config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
+  sample_api:
+    image: php:8.2-apache
+    volumes:
+      - ./sample-api:/var/www/html
+    ports:
+      - "8081:80"
   wp_db:
     image: mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
     # platform: linux/x86_64  # Uncomment if your machine is running on arm (ex: Apple Silicon processor)
