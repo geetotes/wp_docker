@@ -20,8 +20,8 @@ services:
   wpcli:
     image: wordpress:cli
     volumes:
-      - ./wordpress/config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./wordpress/wp-app:/var/www/html
+      - ./config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./wp-app:/var/www/html
     environment:
       WORDPRESS_DB_HOST: wp_db
       WORDPRESS_DB_NAME: wordpress
@@ -45,8 +45,8 @@ services:
     links:
       - wp_db:wp_db
     volumes:
-     - ./wordpress/config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
-     - ./wordpress/config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
+     - ./config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
+     - ./config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
   sample_api:
     image: php:8.2-apache
     volumes:
@@ -63,7 +63,7 @@ services:
         '--collation-server=utf8mb4_unicode_ci'
     ]
     volumes:
-      - ./wordpress/wp-data:/docker-entrypoint-initdb.d
+      - ./wp-data:/docker-entrypoint-initdb.d
       - db_data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: wordpress
