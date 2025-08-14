@@ -4782,8 +4782,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
 /**
  * Retrieves the translation of text.
  *
@@ -4813,6 +4815,9 @@ __webpack_require__.r(__webpack_exports__);
 /** Common Rect hooks */
 
 
+/** WordPress API Fetch library */
+
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -4827,6 +4832,7 @@ function Edit({
   setAttributes
 }) {
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
+  const [title, setTitle] = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
     axios__WEBPACK_IMPORTED_MODULE_3__["default"].get('http://localhost:8081').then(response => {
       if (response.data.message) {
@@ -4837,9 +4843,20 @@ function Edit({
       }
     }).catch(error => console.error('Error fetching API:', error));
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(() => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_5___default()({
+      path: '/wp/v2/settings'
+    }).then(settings => {
+      return settings;
+    }).then(({
+      title
+    }) => {
+      setTitle(title);
+    });
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
-    children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('My Plugin – hello from the editor!', 'my-plugin'), message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Loading message...', 'my-plugin')]
+    children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('My Plugin – hello from the editor!', 'my-plugin'), message || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Loading message...', 'my-plugin'), title || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Loading title...', 'my-plugin')]
   });
 }
 
@@ -4914,6 +4931,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "@wordpress/api-fetch":
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["apiFetch"];
 
 /***/ }),
 
